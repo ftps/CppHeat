@@ -1,7 +1,7 @@
 TARGET = exe
 LIBS = -lm
 CC = g++
-CFLAGS = -Wall -pedantic -o3 -std=c++14
+CFLAGS = -Wall -pedantic -o3
 
 .PHONY: default all clean
 
