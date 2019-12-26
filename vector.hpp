@@ -10,7 +10,9 @@ class Vector
 template<typename T>
 T dot(const Vector<T>& lhs, const Vector<T>& rhs)
 {
-    // Your implementation of the dot function starts here
+    T d = 0;
+
+
 }
 
 #endif // VECTOR_HPP
