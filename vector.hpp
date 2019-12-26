@@ -145,11 +145,6 @@ std::ostream& operator<<(std::ostream& os, Vector<T> v)
 template<typename T, typename U>
 inline auto dot(Vector<T> lhs, Vector<U> rhs)
 {
-<<<<<<< HEAD
-    T d = 0;
-
-
-=======
     if(lhs.size() != rhs.size() || !lhs.size() || !rhs.size()) throw "Vectors have different size, cannot perfom dot product\n";
 
     decltype(lhs[0]+rhs[0]) dot = lhs[0]*rhs[0];
@@ -158,7 +153,6 @@ inline auto dot(Vector<T> lhs, Vector<U> rhs)
     }
 
     return dot;
->>>>>>> b3b80f831bac93f3388e3563358a55ec96fb527e
 }
 
 #endif // VECTOR_HPP
