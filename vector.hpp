@@ -7,6 +7,8 @@
 #include <memory>
 #include <iomanip>
 
+#define LOG std::cout << "IN LINE " << __LINE__ << " IN FILE " << __FILE__ << std::endl
+
 template <typename T>
 class Vector
 {
@@ -16,7 +18,7 @@ class Vector
 public:
     // Constructors
     Vector() : length(0), data(NULL) {}
-    Vector(int n) : length(n), data(new T[n]) {}
+    Vector(int n) : length(n), data(new T[n]()) {}
 
     template<typename U=T>
     Vector(std::initializer_list<U> list) : Vector((int)list.size())

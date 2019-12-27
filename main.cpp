@@ -1,14 +1,17 @@
-#include "vector.hpp"
+#include "matrix.hpp"
 
 int main()
 {
-    Vector<int> a = {1, 3, -2, 9};
-    Vector<double> b {0.5, -0.2, 3.9, -11.37};
-    //Vector<int> e = a-b;
+    Matrix<int> A(3, 3);
+    Vector<int> x = {2, -1, 5};
 
-    std::cout << a+b << std::endl;
-    std::cout << b+a << std::endl;
-    std::cout << -0.2*(b+(b+a)) << std::endl;
-    std::cout << dot(a, b) << std::endl;
+    A[{1, 0}] = 1;
+    A[{2, 1}] = 1;
+    A[{0, 2}] = 1;
+
+    Vector<int> y = A*x;
+
+    std::cout << y << std::endl;
+
     return 0;
 }
