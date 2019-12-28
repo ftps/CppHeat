@@ -78,7 +78,7 @@ public:
     }
 
     template<typename U>
-    inline auto operator+(Vector<U>& other) const
+    inline auto operator+(Vector<U> other) const
     {
         if(length != other.size() || !length || !other.size()) throw "Vectors have different or null size, cannot perfom addition\n";
 
@@ -92,7 +92,7 @@ public:
     }
 
     template<typename U>
-    inline auto operator-(Vector<U>& other) const
+    inline auto operator-(Vector<U> other) const
     {
         if(length != other.size() || !length || !other.size()) throw "Vectors have different size, cannot perfom subtraction\n";
 
@@ -106,7 +106,7 @@ public:
     }
 
     template<typename U>
-    inline auto operator*(const U& scalar)
+    inline auto operator*(const U scalar)
     {
         if(!length) throw "Vector is null, can't perform multiplication\n";
 
@@ -127,7 +127,7 @@ public:
 };
 
 template<typename T, typename U>
-inline auto operator*(const U& scalar, Vector<T>& other)
+inline auto operator*(const U& scalar, Vector<T> other)
 {
     if(!other.size()) throw "Vector is null, can't perform multiplication\n";
 
