@@ -4,13 +4,7 @@
 #include "matrix.hpp"
 
 template<typename T>
-void print(T a)
-{
-	std::cout << a << std::endl;
-}
-
-template<typename T>
-int cg(const Matrix<T> &A, const Vector<T> &b, Vector<T> &x, T tol, int maxiter)
+inline int cg(const Matrix<T> &A, const Vector<T> &b, Vector<T> &x, T tol, int maxiter)
 {
     Vector<T> p = b - A*x;
     Vector<T> r = p;

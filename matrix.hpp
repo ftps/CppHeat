@@ -40,7 +40,7 @@ public:
 	template<typename U=T>
 	typename map<U>::iterator iter() const
 	{
-		return 	it_begin;
+		return it_begin;
 	}
 
 	template<typename U=T>
