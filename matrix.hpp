@@ -27,8 +27,8 @@ public:
             std::cout << "Position out of bounds" << std::endl;
             exit(-2);
         }
-		sparse[p];
-		it_begin = sparse.begin();
+		sparse[p]; // generates mapping of key p if it doesn't exist
+		it_begin = sparse.begin(); // updates the iterator to take into account the new value
         return sparse[p];
     }
     // Methods
@@ -46,7 +46,7 @@ public:
 	template<typename U=T>
 	bool end(typename map<U>::iterator curr) const
 	{
-		return curr == sparse.end();	
+		return curr == sparse.end();
 	}
 };
 
@@ -55,7 +55,7 @@ inline Vector<T> operator*(const Matrix<T>& lhs, const Vector<T>& rhs)
 {
     Vector<T> result(lhs.size()[1]);
 	if(lhs.size()[0] != rhs.size()) throw "Matrix and vector sizes don't match.";
-	
+
 	for(typename map<T>::iterator it = lhs.iter(); !lhs.end(it); it++){
 		result[it->first[0]] += it->second*rhs[it->first[1]];
 	}
