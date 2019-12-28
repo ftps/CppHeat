@@ -70,7 +70,7 @@ public:
 };
 
 template<typename T>
-inline Vector<T> operator*(Matrix<T>& lhs, Vector<T>& rhs)
+inline Vector<T> operator*(Matrix<T>& lhs, const Vector<T>& rhs)
 {
     Vector<T> result(lhs.size()[1]);
 
