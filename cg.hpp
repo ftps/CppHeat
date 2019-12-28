@@ -10,7 +10,7 @@ void print(T a)
 }
 
 template<typename T>
-int cg(Matrix<T> &A, const Vector<T> &b, Vector<T> &x, T tol, int maxiter)
+int cg(const Matrix<T> &A, const Vector<T> &b, Vector<T> &x, T tol, int maxiter)
 {
     Vector<T> p = b - A*x;
     Vector<T> r = p;

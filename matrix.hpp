@@ -6,15 +6,18 @@
 #include <iterator>
 
 template<typename T>
+using map = std::map<std::array<int,2>, T>;
+
+template<typename T>
 class Matrix
 {
 //private:
     const int row, col;
-    std::map<std::array<int,2>, T> sparse;
-    typename std::map<std::array<int,2>, T>::iterator iter;
+    map<T> sparse;
+	typename map<T>::iterator it_begin;
 public:
     // Constructors
-    Matrix(int r, int c) : row(r), col(c){}
+    Matrix(int r, int c) : row(r), col(c), it_begin(sparse.begin()){}
 
     // Operators
     template<typename U=T>
@@ -24,63 +27,38 @@ public:
             std::cout << "Position out of bounds" << std::endl;
             exit(-2);
         }
+		sparse[p];
+		it_begin = sparse.begin();
         return sparse[p];
     }
     // Methods
-    template<typename U=T>
-    void print_map()
-    {
-        typename std::map<std::array<int,2>, U>::iterator it = sparse.begin();
-        while(it !=sparse.end()){
-            std::cout << "Pos: " << it->first[0] << " " << it->first[1] << ", Val: " << it->second << std::endl;
-            it++;
-        }
-    }
-
-    void begin_iter()
-    {
-        iter = sparse.begin();
-    }
-
-    bool iter_end()
-    {
-        return iter == sparse.end();
-    }
-
-    std::array<int, 2> get_pos()
-    {
-        return iter->first;
-    }
-
-    template<typename U=T>
-    U get_val()
-    {
-        return iter->second;
-    }
-
-    void next()
-    {
-        iter++;
-    }
-
-    std::array<int, 2> size()
+    std::array<int, 2> size() const
     {
         return {row, col};
     }
+
+	template<typename U=T>
+	typename map<U>::iterator iter() const
+	{
+		return 	it_begin;
+	}
+
+	template<typename U=T>
+	bool end(typename map<U>::iterator curr) const
+	{
+		return curr == sparse.end();	
+	}
 };
 
 template<typename T>
-inline Vector<T> operator*(Matrix<T>& lhs, const Vector<T>& rhs)
+inline Vector<T> operator*(const Matrix<T>& lhs, const Vector<T>& rhs)
 {
     Vector<T> result(lhs.size()[1]);
-
-    if(lhs.size()[0] != rhs.size()) throw "Matrix and vector sizes don't match.";
-
-    lhs.begin_iter();
-    while(!lhs.iter_end()){
-        result[lhs.get_pos()[0]] += lhs.get_val()*rhs[lhs.get_pos()[1]];
-        lhs.next();
-    }
+	if(lhs.size()[0] != rhs.size()) throw "Matrix and vector sizes don't match.";
+	
+	for(typename map<T>::iterator it = lhs.iter(); !lhs.end(it); it++){
+		result[it->first[0]] += it->second*rhs[it->first[1]];
+	}
 
     return result;
 }
