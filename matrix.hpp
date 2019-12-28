@@ -8,9 +8,11 @@
 template<typename T>
 class Matrix
 {
-public:
+//private:
     const int row, col;
     std::map<std::array<int,2>, T> sparse;
+    typename std::map<std::array<int,2>, T>::iterator iter;
+public:
     // Constructors
     Matrix(int r, int c) : row(r), col(c){}
 
@@ -34,19 +36,50 @@ public:
             it++;
         }
     }
+
+    void begin_iter()
+    {
+        iter = sparse.begin();
+    }
+
+    bool iter_end()
+    {
+        return iter == sparse.end();
+    }
+
+    std::array<int, 2> get_pos()
+    {
+        return iter->first;
+    }
+
+    template<typename U=T>
+    U get_val()
+    {
+        return iter->second;
+    }
+
+    void next()
+    {
+        iter++;
+    }
+
+    std::array<int, 2> size()
+    {
+        return {row, col};
+    }
 };
 
 template<typename T>
 inline Vector<T> operator*(Matrix<T>& lhs, Vector<T>& rhs)
 {
-    Vector<T> result(lhs.col);
+    Vector<T> result(lhs.size()[1]);
 
-    if(lhs.row != rhs.size()) throw "Matrix and vector sizes don't match.";
+    if(lhs.size()[0] != rhs.size()) throw "Matrix and vector sizes don't match.";
 
-    typename std::map<std::array<int, 2>, T>::iterator it = lhs.sparse.begin();
-    while(it != lhs.sparse.end()){
-        result[it->first[0]] += it->second*rhs[it->first[1]];
-        it++;
+    lhs.begin_iter();
+    while(!lhs.iter_end()){
+        result[lhs.get_pos()[0]] += lhs.get_val()*rhs[lhs.get_pos()[1]];
+        lhs.next();
     }
 
     return result;
