@@ -37,9 +37,11 @@ public:
 };
 
 template<typename T>
-Vector<T> operator*(Matrix<T>& lhs, Vector<T>& rhs)
+inline Vector<T> operator*(Matrix<T>& lhs, Vector<T>& rhs)
 {
     Vector<T> result(lhs.col);
+
+    if(lhs.row != rhs.size()) throw "Matrix and vector sizes don't match.";
 
     typename std::map<std::array<int, 2>, T>::iterator it = lhs.sparse.begin();
     while(it != lhs.sparse.end()){
