@@ -24,7 +24,7 @@ class Vector
 public:
     // Constructors
     Vector() : length(0), data(NULL) {}
-    Vector(int n) : length(n), data(new T[n]()) {}
+    Vector(const int n) : length(n), data(new T[n]()) {}
 
     template<typename U=T>
     Vector(std::initializer_list<U> list) : Vector((int)list.size())
@@ -43,13 +43,6 @@ public:
     ~Vector()
     {
         if(data != NULL) delete data;
-    }
-
-    // Operators
-    template<typename U=T>
-    U& operator[](const int i)
-	{
-        return data[i];
     }
 
 	template<typename U=T>
