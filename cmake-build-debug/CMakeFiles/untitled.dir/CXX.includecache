@@ -1,0 +1,36 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+C:/Users/User/OneDrive/MASTER/Q2/c_pp/untitled/cg.hpp
+matrix.hpp
+C:/Users/User/OneDrive/MASTER/Q2/c_pp/untitled/matrix.hpp
+
+C:/Users/User/OneDrive/MASTER/Q2/c_pp/untitled/main.cpp
+cg.hpp
+C:/Users/User/OneDrive/MASTER/Q2/c_pp/untitled/cg.hpp
+
+C:/Users/User/OneDrive/MASTER/Q2/c_pp/untitled/matrix.hpp
+vector.hpp
+C:/Users/User/OneDrive/MASTER/Q2/c_pp/untitled/vector.hpp
+map
+-
+iterator
+-
+
+C:/Users/User/OneDrive/MASTER/Q2/c_pp/untitled/vector.hpp
+iostream
+-
+initializer_list
+-
+cassert
+-
+memory
+-
+iomanip
+-
+
