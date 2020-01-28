@@ -53,8 +53,8 @@ public:
 template<typename T>
 inline Vector<T> operator*(const Matrix<T>& lhs, const Vector<T>& rhs)
 {
-    Vector<T> result(lhs.size()[1]);
-	if(lhs.size()[0] != rhs.size()) throw "Matrix and vector sizes don't match.";
+    Vector<T> result(lhs.size()[0]);
+	if(lhs.size()[1] != rhs.size()) throw "Matrix and vector sizes don't match.";
 
 	for(typename map<T>::iterator it = lhs.iter(); !lhs.end(it); it++){
 		result[it->first[0]] += it->second*rhs[it->first[1]];
