@@ -73,7 +73,7 @@ public:
     template<int dim>
     void calc_initial(Vector<T>& x, Vector<T>& u, int& counter){
         for(x[dim]=1; x[dim]<=m; x[dim]++){
-            calc_exact(dim-1,x, counter);
+            calc_initial<n-1>(x, u, counter);
         }
     }
 
@@ -96,7 +96,7 @@ public:
         Vector<int> x(n); //vector that holds the current position
         int counter=0;
 
-        calc_initial(x,u,counter,t);
+        calc_initial<n>(x,u,counter);
         u=u*exp(-n*M_PI^2*alpha*t);
         return u;
     }
@@ -109,7 +109,7 @@ public:
         Vector<int> x(n);       //vector that holds the current position
         int counter=0;
 
-        calc_initial(x,u,counter,t);
+        calc_initial<n>(x,u,counter);
         for (auto i = 0; i < l; ++i) {
             cg(M, u, u_next, 0.01, 10^6); //tolerance and number of max iterations can be changed
             u=u_next;
