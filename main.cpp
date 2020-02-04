@@ -1,4 +1,4 @@
-#include "cg.hpp"
+#include "heat.hpp"
 
 int main()
 {

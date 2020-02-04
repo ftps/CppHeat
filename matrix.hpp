@@ -63,4 +63,16 @@ inline Vector<T> operator*(const Matrix<T>& lhs, const Vector<T>& rhs)
     return result;
 }
 
+template<typename T>
+inline Matrix<T> operator*(const T& lhs, const Matrix<T>& rhs)
+{
+    Matrix<T> result(rhs.size[0], rhs.size[1]);
+
+    for(typename map<T>::iterator it = rhs.iter(); !rhs.end(it); it++){
+        result[it->first] = lhs*it->second;
+    }
+
+    return result;
+}
+
 #endif // MATRIX_HPP
