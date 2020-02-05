@@ -67,6 +67,7 @@ public:
         for (typename map<T>::iterator it = D.iter(); !D.end(it); it++) {
             M[it->first] -= coefficient*it->second;
         }
+        return M;
     }
 
     //Initial value of u(x,0)
@@ -75,6 +76,7 @@ public:
         for(x[dim]=1; x[dim]<=m; x[dim]++){
             calc_initial_it<U,n-1>(x, u, counter);
         }
+        return;
     }
 
     //last iteration - 1 dimension, a line with m nodes
@@ -88,6 +90,7 @@ public:
             }
             counter++;
         }
+        return;
     }
 
     template<typename U=T>
@@ -95,6 +98,7 @@ public:
         Vector<int> x(n); //vector that holds the current position
         int counter=0;
         calc_initial_it<U,n>(x,u,counter);
+        return;
     }
 
     template<typename U=T>
