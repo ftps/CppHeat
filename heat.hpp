@@ -70,16 +70,16 @@ public:
     }
 
     //Initial value of u(x,0)
-    template<int dim>
-    void calc_initial(Vector<T>& x, Vector<T>& u, int& counter){
+    template<typename U=T,int dim>
+    void calc_initial_it(Vector<U>& x, Vector<U>& u, int& counter){
         for(x[dim]=1; x[dim]<=m; x[dim]++){
-            calc_initial<n-1>(x, u, counter);
+            calc_initial_it<U,n-1>(x, u, counter);
         }
     }
 
     //last iteration - 1 dimension, a line with m nodes
-    template<>
-    void calc_initial<1>(Vector<T>& x, Vector<T>& u, int& counter){
+    template<typename U=T>
+    void calc_initial_it<U,1>(Vector<U>& x, Vector<U>& u, int& counter){
         double const dx=1/(m+1);
         for(x[1]=1; x[1]<=m; x[1]++){
             for (auto i = 0; i < n ; ++i){ //product of sin(pi*x_i) , 0<i<n-1
@@ -91,12 +91,17 @@ public:
     }
 
     template<typename U=T>
-    Vector<U> exact(U t) const{
-        Vector<U> u(pow(m,n)); //vector with the result
+    void calc_initial(Vector<U>& u){
         Vector<int> x(n); //vector that holds the current position
         int counter=0;
+        calc_initial_it<U,n>(x,u,counter);
+    }
 
-        calc_initial<n>(x,u,counter);
+    template<typename U=T>
+    Vector<U> exact(U t) const{
+        Vector<U> u(pow(m,n)); //vector with the result
+
+        calc_initial(u);
         u=u*exp(-n*M_PI^2*alpha*t);
         return u;
     }
@@ -106,10 +111,8 @@ public:
         int l = (int) t / dt;   //t = l * dt;
         Vector<U> u(pow(m,n));  //vector with the result
         Vector<U> u_next(pow(m,n));
-        Vector<int> x(n);       //vector that holds the current position
-        int counter=0;
 
-        calc_initial<n>(x,u,counter);
+        calc_initial(u);
         for (auto i = 0; i < l; ++i) {
             cg(M, u, u_next, 0.01, 10^6); //tolerance and number of max iterations can be changed
             u=u_next;

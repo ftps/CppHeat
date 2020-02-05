@@ -11,6 +11,7 @@ int main()
     A[{2, 1}] = 1;
 
     std::cout << cg<double>(A, b, x, 2, 100) << std::endl;
+    
 
     return 0;
 }
