@@ -51,7 +51,6 @@ public:
                 }
             }
         }
-
         return D;
     }
 
@@ -70,26 +69,32 @@ public:
         return M;
     }
 
-    //Initial value of u(x,0)
-    template<typename U=T,int dim>
-    void calc_initial_it(Vector<U>& x, Vector<U>& u, int& counter){
-        for(x[dim]=1; x[dim]<=m; x[dim]++){
-            calc_initial_it<U,n-1>(x, u, counter);
-        }
-        return;
-    }
 
-    //last iteration - 1 dimension, a line with m nodes
+
+    //Recursive process to obtain the initial conditions
+    // *** there's another version using the template specialization but
+    // I was not able to find a viable option to implement it because it requires
+    //partial template specializataion with a non-variable which is not supported by
+    //the compiler for same reason
+    //the specialized version was already shared so it anyone wants to take a look at it
+    //and try to find a solution feel welcome to
+    //For now, this is a way to implement that actually works
     template<typename U=T>
-    void calc_initial_it<U,1>(Vector<U>& x, Vector<U>& u, int& counter){
-        double const dx=1/(m+1);
-        for(x[1]=1; x[1]<=m; x[1]++){
-            for (auto i = 0; i < n ; ++i){ //product of sin(pi*x_i) , 0<i<n-1
-                u[counter]*=sin(M_PI*x[i]*dx);
+    void calc_initial_it(Vector<U>& x, Vector<U>& u, int& counter, int dim){ //dim has to be passed by value because in calc_initial it is the attribute n and we don't want to change it
+        if(dim==1){
+            double const dx=1/(m+1);
+            for(x[1]=1; x[1]<=m; x[1]++){
+                for (auto i = 0; i < n ; ++i){ //product of sin(pi*x_i) , 0<i<n-1
+                    u[counter]*=sin(M_PI*x[i]*dx);
+                    counter++;
+                }
                 counter++;
             }
-            counter++;
-        }
+            return;
+        }else //this is the last iteration
+            for(x[dim]=1; x[dim]<=m; x[dim]++){
+                calc_initial_it<U,dim-1>(x, u, counter, dim-1);
+            }
         return;
     }
 
@@ -97,7 +102,7 @@ public:
     void calc_initial(Vector<U>& u){
         Vector<int> x(n); //vector that holds the current position
         int counter=0;
-        calc_initial_it<U,n>(x,u,counter);
+        calc_initial_it<U,n>(x,u,counter,n);
         return;
     }
 
