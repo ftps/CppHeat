@@ -45,7 +45,7 @@ public:
         for(int i = 0; i < dim; ++i){
             for(int j = i+1; j < dim; ++j){
                 for(int k = 0; k < n; ++k){
-                    if((i+pow(m,k))%pow(m,k+1) == (i%pow(m,k+1))){
+                    if((i+(int)pow(m,k))%(int)pow(m,k+1) == (i%(int)pow(m,k+1))){
                         D[{i, i+pow(m,k)}] += 1;
                     }
                 }
