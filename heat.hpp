@@ -10,6 +10,12 @@
 #include "vector.hpp"
 #include <cmath>
 
+int power(int a, int n)
+{
+    if(!n) return 1;
+    else return a*power(a, n-1);
+}
+
 template <int n, typename T>
 class Heat{
 //private:
@@ -21,51 +27,29 @@ class Heat{
 
 public:
     //Constructors
-    Heat(double a, int mm, double delta_t) : alpha(a), m(mm), dt(delta_t), dim(pow(m,n)){
-        M = createM();
-    }
-
-    //Methods
-    //Creates an identity matrix dim x dim
-    template<typename U=T>
-    Matrix<U> identity(){
-        Matrix<U> I(dim,dim);
-        for (auto i = 0; i < dim; ++i) {
-            I[{i,i}] = 1;
-        }
-        return I;
-    }
-
-    //Francisco, this is yours :)
-    template<typename U=T>
-    Matrix<U> createD()
+    Heat(double a, double delta_t, int mm) : alpha(a), m(mm), dt(delta_t), dim(pow(m,n)), M(dim, dim)
     {
-        Matrix<U> D = (n*-2)*identity();
+        int kk, kk1;
+        const double coeff = alpha*dt*pow(m+1, 2);
 
         for(int i = 0; i < dim; ++i){
-            for(int j = i+1; j < dim; ++j){
-                for(int k = 0; k < n; ++k){
-                    if((i+(int)pow(m,k))%(int)pow(m,k+1) == (i%(int)pow(m,k+1))){
-                        D[{i, i+pow(m,k)}] += 1;
-                    }
+            M[{i,i}] = 1 + n*2*coeff;
+            for(int k = 0; k < n; ++k){
+                kk = power(m, k);
+                kk1 = power(m, k+1);
+                if((i+kk)/kk1 == (i/kk1)){
+                    M[{i, i+kk}] -= coeff;
+                    M[{i+kk, i}] -= coeff;
                 }
             }
         }
-        return D;
     }
 
-    //Create M
+    //Methods
+
     template<typename U=T>
-    Matrix<U> createM(){
-        double const dx=1/(m+1);
-        double const coefficient = alpha*dt/pow(dx,2);
-        Matrix<U> D = createD();
-
-        M = identity();
-
-        for (typename map<T>::iterator it = D.iter(); !D.end(it); it++) {
-            M[it->first] -= coefficient*it->second;
-        }
+    Matrix<U>& getMatrix()
+    {
         return M;
     }
 

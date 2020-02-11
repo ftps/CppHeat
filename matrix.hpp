@@ -51,6 +51,33 @@ public:
 };
 
 template<typename T>
+inline Matrix<T> operator*(const T& lhs, const Matrix<T>& rhs)
+{
+    Matrix<T> result(rhs.size[0], rhs.size[1]);
+
+    for(typename map<T>::iterator it = rhs.iter(); !rhs.end(it); it++){
+        result[it->first] = lhs*it->second;
+    }
+
+    return result;
+}
+
+template<typename T>
+std::ostream& operator<<(std::ostream& os, const Matrix<T>& M)
+{
+    for(auto it = M.iter(); !M.end(it); it++)
+    {
+        os << "[" << it->first[0] << ", " << it->first[1] << "]: ";
+        os << it->second << std::endl;
+    }
+
+    return os;
+}
+
+
+
+// Vector multiplication on the right
+template<typename T>
 inline Vector<T> operator*(const Matrix<T>& lhs, const Vector<T>& rhs)
 {
     Vector<T> result(lhs.size()[0]);
@@ -59,18 +86,6 @@ inline Vector<T> operator*(const Matrix<T>& lhs, const Vector<T>& rhs)
 	for(typename map<T>::iterator it = lhs.iter(); !lhs.end(it); it++){
 		result[it->first[0]] += it->second*rhs[it->first[1]];
 	}
-
-    return result;
-}
-
-template<typename T>
-inline Matrix<T> operator*(const T& lhs, const Matrix<T>& rhs)
-{
-    Matrix<T> result(rhs.size[0], rhs.size[1]);
-
-    for(typename map<T>::iterator it = rhs.iter(); !rhs.end(it); it++){
-        result[it->first] = lhs*it->second;
-    }
 
     return result;
 }

@@ -1,17 +1,14 @@
 #include "heat.hpp"
 
-int main()
+int main(int argc, char* argv[])
 {
-    Matrix<double> A(3, 3);
-    Vector<double> x = {2, -1, 5};
-    Vector<double> b = {0, -1, 2};
+    // Verification of 1d system matrix
+    Heat<1,double> Heat1d(0.3125, 0.1, 3);
+    std::cout << Heat1d.getMatrix() << std::endl;
 
-    A[{1, 0}] = 1;
-    A[{0, 2}] = 1;
-    A[{2, 1}] = 1;
-
-    std::cout << cg<double>(A, b, x, 2, 100) << std::endl;
-    
+    // Verification of 2d system matrix
+    Heat<2,double> Heat2d(0.3125, 0.1, 3);
+    std::cout << Heat2d.getMatrix() << std::endl;
 
     return 0;
 }
