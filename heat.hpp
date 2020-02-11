@@ -74,7 +74,7 @@ public:
     //Recursive process to obtain the initial conditions
     // *** there's another version using the template specialization but
     // I was not able to find a viable option to implement it because it requires
-    //partial template specializataion with a non-variable which is not supported by
+    //partial template specialization with a non-variable which is not supported by
     //the compiler for same reason
     //the specialized version was already shared so it anyone wants to take a look at it
     //and try to find a solution feel welcome to
