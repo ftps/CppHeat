@@ -10,9 +10,10 @@
 #include "vector.hpp"
 #include <cmath>
 
+// power function introduced for natural values
 int power(int a, int n)
 {
-    if(!n) return 1;
+    if(n <= 0) return 1;
     else return a*power(a, n-1);
 }
 
@@ -27,13 +28,13 @@ class Heat{
 
 public:
     //Constructors
-    Heat(double a, double delta_t, int mm) : alpha(a), m(mm), dt(delta_t), dim(pow(m,n)), M(dim, dim)
+    Heat(double a, double delta_t, int mm) : alpha(a), m(mm), dt(delta_t), M(dim, dim), dim(pow(m,n))
     {
         int kk, kk1;
         const double coeff = alpha*dt*pow(m+1, 2);
 
         for(int i = 0; i < dim; ++i){
-            M[{i,i}] = 1 + n*2*coeff;
+            M[{i,i}] = 1 + n*2*coeff;   // The diagonal of the M matrix is filled with the idendity plus the sum in k of D_kii
             for(int k = 0; k < n; ++k){
                 kk = power(m, k);
                 kk1 = power(m, k+1);
