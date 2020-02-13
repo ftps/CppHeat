@@ -45,6 +45,8 @@ public:
         if(data != NULL) delete data;
     }
 
+    // Operators
+
 	template<typename U=T>
 	U& operator[](const int i) const
 	{
@@ -66,13 +68,15 @@ public:
     }
 
     template<typename U=T> // Move assignment operator
-    Vector<U>& operator=(Vector<U>&& orig)
+    Vector<U>& operator=(Vector<U>&& other)
     {
-        length=std::move(orig.length);
-        data = std::move(orig.data);
+        if(this != &other){
+            length = std::move(other.length);
+            data = std::move(other.data);
 
-        orig.length = 0;
-        orig.data = NULL;
+            other.length = 0;
+            other.data = NULL;
+        }
 
         return *this;
     }

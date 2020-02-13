@@ -67,16 +67,14 @@ std::ostream& operator<<(std::ostream& os, const Matrix<T>& M)
 {
     for(auto it = M.iter(); !M.end(it); it++)
     {
-        os << "[" << it->first[0] << ", " << it->first[1] << "]: ";
-        os << it->second << std::endl;
+        os << std::endl << "[" << it->first[0] << ", " << it->first[1] << "]: ";
+        os << it->second;
     }
-
-    return os;
+    os << std::endl;
 }
 
 
 
-// Vector multiplication on the right
 template<typename T>
 inline Vector<T> operator*(const Matrix<T>& lhs, const Vector<T>& rhs)
 {
@@ -89,5 +87,6 @@ inline Vector<T> operator*(const Matrix<T>& lhs, const Vector<T>& rhs)
 
     return result;
 }
+
 
 #endif // MATRIX_HPP

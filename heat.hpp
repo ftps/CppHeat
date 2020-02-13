@@ -64,53 +64,60 @@ public:
     //and try to find a solution feel welcome to
     //For now, this is a way to implement that actually works
     template<typename U=T>
-    void calc_initial_it(Vector<U>& x, Vector<U>& u, int& counter, int dim){ //dim has to be passed by value because in calc_initial it is the attribute n and we don't want to change it
+    void calc_initial_it(Vector<int>& x, Vector<U>& u, int& counter, int dim) const
+    { //dim has to be passed by value because in calc_initial it is the attribute n and we don't want to change it
         if(dim==1){
-            double const dx=1/(m+1);
-            for(x[1]=1; x[1]<=m; x[1]++){
+            const double dx=1/((double)m+1);
+            for(x[0]=1; x[0]<=m; x[0]++){
                 for (auto i = 0; i < n ; ++i){ //product of sin(pi*x_i) , 0<i<n-1
-                    u[counter]*=sin(M_PI*x[i]*dx);
-                    counter++;
+                    u[counter]*=sin(M_PI*(x[i]*dx));
                 }
                 counter++;
             }
             return;
         }else //this is the last iteration
-            for(x[dim]=1; x[dim]<=m; x[dim]++){
-                calc_initial_it<U,dim-1>(x, u, counter, dim-1);
+            for(x[dim-1]=1; x[dim-1]<=m; x[dim-1]++){
+                calc_initial_it<U>(x, u, counter, dim-1);
             }
         return;
     }
 
     template<typename U=T>
-    void calc_initial(Vector<U>& u){
+    void calc_initial(Vector<U>& u) const
+    {
         Vector<int> x(n); //vector that holds the current position
         int counter=0;
-        calc_initial_it<U,n>(x,u,counter,n);
-        return;
+
+        for(auto i = 0; i < dim; ++i){
+            u[i] = 1;
+        }
+
+        calc_initial_it(x,u,counter,n);
     }
 
     template<typename U=T>
-    Vector<U> exact(U t) const{
-        Vector<U> u(pow(m,n)); //vector with the result
+    Vector<U> exact(double t) const
+    {
+        Vector<U> u(dim); //vector with the result
 
         calc_initial(u);
-        u=u*exp(-n*M_PI^2*alpha*t);
+        u=u*exp(-n*pow(M_PI,2)*alpha*t);
         return u;
     }
 
     template <typename U=T>
-    Vector<U> solve(U t) const{
-        int l = (int) t / dt;   //t = l * dt;
-        Vector<U> u(pow(m,n));  //vector with the result
-        Vector<U> u_next(pow(m,n));
+    Vector<U> solve(double t) const
+    {
+        int l = (int) (t/dt);   //t = l * dt;
+        Vector<U> u(dim);
+        Vector<U> u_next(dim); //vector with the result
 
-        calc_initial(u);
+        calc_initial(u_next);
         for (auto i = 0; i < l; ++i) {
-            cg(M, u, u_next, 0.01, 10^6); //tolerance and number of max iterations can be changed
-            u=u_next;
+            u = u_next;
+            cg(M, u, u_next, 0.001, 1e6); //tolerance and number of max iterations can be changed
         }
-        return u;
+        return u_next;
     }
 
 };
