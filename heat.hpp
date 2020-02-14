@@ -10,13 +10,6 @@
 #include "vector.hpp"
 #include <cmath>
 
-// power function introduced for natural values
-int power(int a, int n)
-{
-    if(n <= 0) return 1;
-    else return a*power(a, n-1);
-}
-
 template <int n, typename T>
 class Heat{
 //private:
@@ -24,22 +17,26 @@ class Heat{
     const int m;
     const double dt;
     const int dim;
-    Matrix<T> M;
+    Matrix<T> M; // matrix M is not const due to the several steps required to generate it
 
 public:
-    //Constructors
-    Heat(double a, double delta_t, int mm) : alpha(a), m(mm), dt(delta_t), M(dim, dim), dim(pow(m,n))
+    //Constructor
+    Heat(double alpha, double delta_t, int mm) : alpha(alpha), m(mm), dt(delta_t), M(dim, dim), dim(pow(m,n))
     {
         int kk, kk1;
-        const double coeff = alpha*dt*pow(m+1, 2);
+        const double coeff = alpha*dt*pow(m+1, 2); // alpha*dt/dx^2
 
         for(int i = 0; i < dim; ++i){
             M[{i,i}] = 1 + n*2*coeff;   // The diagonal of the M matrix is filled with the idendity plus the sum in k of D_kii
-            for(int k = 0; k < n; ++k){
-                kk = power(m, k);
-                kk1 = power(m, k+1);
-                if((i+kk)/kk1 == (i/kk1)){
-                    M[{i, i+kk}] -= coeff;
+            kk = 1;
+            kk1 = m;
+            for(int k = 0; k < n; ++k){     // the loop will go through the forward neighbours of point i
+                if(k){                      // those being the ones such that j > i
+                    kk *= m;                // which will be located right next to i (j = i + 1),
+                    kk1 *= m;               // on the next line (j = i + m), plane (j = i + m^2) or
+                }                           // in general (j = i + m^k)
+                if((i+kk)/kk1 == (i/kk1)){  // this if verifies if j is the same hyperplane as i
+                    M[{i, i+kk}] -= coeff;  // and adds the value to such point accordingly
                     M[{i+kk, i}] -= coeff;
                 }
             }
