@@ -1,19 +1,10 @@
 #ifndef VECTOR_HPP
 #define VECTOR_HPP
 
-#include <iostream>
 #include <initializer_list>
-#include <cassert>
 #include <memory>
+#include <cassert>
 #include <iomanip>
-
-#define LOG std::cout << "IN LINE " << __LINE__ << " IN FILE " << __FILE__ << std::endl
-
-void error(const char* msg, const int ex)
-{
-    std::cout << msg << std::endl;
-    exit(ex);
-}
 
 template <typename T>
 class Vector
@@ -84,7 +75,9 @@ public:
     template<typename U>
     inline auto operator+(const Vector<U> other) const
     {
-        if(length != other.size() || !length || !other.size()) throw "Vectors have different or null size, cannot perfom addition\n";
+        if(length != other.size() || !length || !other.size()){
+            throw "Vectors have different or null size, cannot perfom addition\n";
+        }
 
         Vector<decltype(data[0]+other[0])> new_v(length);
 
@@ -98,7 +91,9 @@ public:
     template<typename U>
     inline auto operator-(const Vector<U> other) const
     {
-        if(length != other.size() || !length || !other.size()) throw "Vectors have different size, cannot perfom subtraction\n";
+        if(length != other.size() || !length || !other.size()){
+            throw "Vectors have different size, cannot perfom subtraction\n";
+        }
 
         Vector<decltype(data[0]-other[0])> new_v(length);
 
@@ -112,7 +107,9 @@ public:
     template<typename U>
     inline auto operator*(const U scalar) const
     {
-        if(!length) throw "Vector is null, can't perform multiplication\n";
+        if(!length){
+            throw "Vector is null, can't perform multiplication\n";
+        }
 
         Vector<decltype(data[0]*scalar)> new_v(length);
 
@@ -133,7 +130,9 @@ public:
 template<typename T, typename U>
 inline auto operator*(const U& scalar, const Vector<T> other)
 {
-    if(!other.size()) throw "Vector is null, can't perform multiplication\n";
+    if(!other.size()){
+        throw "Vector is null, can't perform multiplication\n";
+    }
 
     Vector<decltype(other[0]*scalar)> new_v(other.size());
 
@@ -157,7 +156,9 @@ std::ostream& operator<<(std::ostream& os, Vector<T>& v)
 template<typename T, typename U>
 inline auto dot(const Vector<T>& lhs, const Vector<U>& rhs)
 {
-    if(lhs.size() != rhs.size() || !lhs.size() || !rhs.size()) throw "Vectors have different size, cannot perfom dot product\n";
+    if(lhs.size() != rhs.size() || !lhs.size() || !rhs.size()){
+        throw "Vectors have different size, cannot perfom dot product\n";
+    }
 
     decltype(lhs[0]+rhs[0]) dot = lhs[0]*rhs[0];
     for(int i = 1; i < lhs.size(); ++i){

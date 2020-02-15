@@ -1,10 +1,11 @@
 #include "heat.hpp"
+#include <iostream>
 
 int main(int argc, char* argv[])
 {
     // Verification of 1d system matrix
     Vector<double> aux1, aux2;
-    Heat<1,double> Heat1d(0.3125, 0.1, 3);
+    Heat<1,double> Heat1d(0.3125, 0.01, 3);
 
     std::cout << Heat1d.getMatrix() << std::endl;
     aux1 = Heat1d.exact(0.05);
