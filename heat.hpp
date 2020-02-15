@@ -106,8 +106,8 @@ public:
     Vector<U> solve(U t) const
     {
         int l = (int) (t/dt);   //t = l * dt;
-        Vector<U> u(u_initial);
-        Vector<U> u_aux(dim); //vector with the result
+        Vector<U> u(u_initial); // vector with the result
+        Vector<U> u_aux(dim);
 
         for (auto i = 0; i < l; ++i) {
             u_aux = u;
