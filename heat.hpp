@@ -5,7 +5,6 @@
 #include "matrix.hpp"
 #include "vector.hpp"
 #include <cmath>
-#include <iostream>
 
 template <int n, typename T>
 class Heat{
