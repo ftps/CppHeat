@@ -5,7 +5,6 @@
 #include "matrix.hpp"
 #include "vector.hpp"
 #include <cmath>
-#include <iostream>
 
 template <int n, typename T>
 class Heat{
@@ -104,7 +103,7 @@ public:
     }
 
     template <typename U=T>
-    Vector<U> solve(double t) const
+    Vector<U> solve(U t) const
     {
         int l = (int) (t/dt);   //t = l * dt;
         Vector<U> u(u_initial);
