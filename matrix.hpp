@@ -23,7 +23,7 @@ public:
     Matrix(const Matrix<U> other) : Matrix(other.row, other.col)
     {
         sparse = other.sparse;
-        it_begin = other.it_begin;
+        it_begin = sparse.begin();
     }
 
     template<typename U=T>
