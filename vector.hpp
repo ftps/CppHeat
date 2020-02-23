@@ -144,7 +144,7 @@ inline auto operator*(const U& scalar, const Vector<T> other)
 }
 
 template<typename T>
-std::ostream& operator<<(std::ostream& os, Vector<T>& v)
+std::ostream& operator<<(std::ostream& os, const Vector<T>& v)
 {
     os << "Vector sz " << v.size() << " :";
     for(int i = 0; i < v.size(); ++i){

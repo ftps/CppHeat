@@ -1,5 +1,5 @@
 TARGET = exe
-LIBS = -lm
+LIBS = -lm -lutil -lboost_iostreams -lboost_system -lboost_filesystem
 CC = g++
 CFLAGS = -Wall -pedantic -o3 -std=c++14 -fconcepts
 

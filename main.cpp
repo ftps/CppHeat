@@ -1,26 +1,38 @@
 #include "heat.hpp"
+//#include "gnuplot-iostream.h"
+#include <vector>
 #include <iostream>
 
 int main(int argc, char* argv[])
 {
-    // Verification of 1d system matrix
-    Vector<double> aux1, aux2;
-    Heat<1,double> Heat1d(0.3125, 0.01, 3);
+    /*std::vector<std::pair<double, double>> result;
+    Vector<double> aux;
+    Gnuplot gp;
+    gp << "set xrange [0:1]\nset yrange [0:1]\n";
 
-    std::cout << Heat1d.getMatrix() << std::endl;
-    aux1 = Heat1d.exact(0.05);
-    std::cout << aux1 << std::endl;
-    aux2 = Heat1d.solve(0.05);
-    std::cout << aux2 << std::endl;
+    gp << "plot '-' with lines title 'hh'";
+    for(int m = 20; m < 80; m += 10){
+        gp << ", '-' with lines title 'hh'";
+    }
+    gp << "\n";
 
-    // Verification of 2d system matrix
-    Heat<2,double> Heat2d(0.3125, 0.0001, 5);
+    for(int m = 10; m < 80; m += 10){
+        Heat<1,double> Heat1d(0.3125, 0.001, m);
+        aux = Heat1d.solve(0.1*(m/10.0));
+        double dx = 1/(double)(1+m);
+        std::cout << "m = " << m << std::endl;
+        for(auto i = 0; i < aux.size(); ++i){
+            result.push_back(std::make_pair(dx*(i+1), aux[i]));
+        }
 
-    std::cout << Heat2d.getMatrix() << std::endl;
-    aux1 = Heat2d.exact(0.05);
-    std::cout << aux1 << std::endl;
-    aux2 = Heat2d.solve(0.05);
-    std::cout << aux2 << std::endl;
+        gp.send1d(result);
+        result.clear();
+    }*/
+
+    Heat<1, double> Heat1d(0.3125, 0.001, 99);
+    Vector<double> aux;
+
+    std::cout << (aux = Heat1d.solve(2.0)) << std::endl;
 
     return 0;
 }

@@ -11,13 +11,13 @@ inline int cg(const Matrix<T> &A, const Vector<T> &b, Vector<T> &x, T tol, int m
     T a;
 
     for(int i = 0; i < maxiter; ++i){
-        a = dot(r, r)/dot(A*p, p);  
+        a = dot(r, r)/dot(A*p, p);
         x = x + p*a;
 		r = r - a*(A*p);
 
 		if(dot(r, r) < tol*tol) return i;
 
-		p = r + dot(r, r)/(a*dot(p, p))*p;
+		p = r + dot(r, r)/(a*dot(A*p, p))*p;
     }
 
     return -1;
