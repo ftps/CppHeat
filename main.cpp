@@ -1,38 +1,45 @@
 #include "heat.hpp"
-//#include "gnuplot-iostream.h"
 #include <vector>
 #include <iostream>
 
 int main(int argc, char* argv[])
 {
-    /*std::vector<std::pair<double, double>> result;
-    Vector<double> aux;
-    Gnuplot gp;
-    gp << "set xrange [0:1]\nset yrange [0:1]\n";
+    // VERIFICATION #1: 1d problem
 
-    gp << "plot '-' with lines title 'hh'";
-    for(int m = 20; m < 80; m += 10){
-        gp << ", '-' with lines title 'hh'";
-    }
-    gp << "\n";
+    // Test 1 -> alpha=0.3125, dt=0.001, m=99, t=1
+    // (numerical vs. exact solution comparison)
+    
+    Vector<double> aux1, aux2;
+    Heat<1,double> Heat1d_test1(0.3125, 0.001, 99);
 
-    for(int m = 10; m < 80; m += 10){
-        Heat<1,double> Heat1d(0.3125, 0.001, m);
-        aux = Heat1d.solve(0.1*(m/10.0));
-        double dx = 1/(double)(1+m);
-        std::cout << "m = " << m << std::endl;
-        for(auto i = 0; i < aux.size(); ++i){
-            result.push_back(std::make_pair(dx*(i+1), aux[i]));
-        }
+    aux1 = Heat1d_test1.exact(1.0);
+    //std::cout << aux1 << std::endl;
+    aux2 = Heat1d_test1.solve(1.0);
+    //std::cout << aux2 << std::endl;
 
-        gp.send1d(result);
-        result.clear();
-    }*/
+    // Test 2 -> alpha=0.3125, dt=0.1, m=3
+    // (verify matrix M assembly)
+    Heat<1,double> Heat1d_test2(0.3125, 0.1, 3);
+    std::cout << Heat1d_test2.getMatrix() << std::endl;
 
-    Heat<1, double> Heat1d(0.3125, 0.001, 99);
-    Vector<double> aux;
 
-    std::cout << (aux = Heat1d.solve(2.0)) << std::endl;
 
+    // VERIFICATION #2: 2d problem
+
+    // Test 1 -> alpha=0.3125, dt=0.001, m=99, t=0.5
+    // (numerical vs. exact solution comparison)
+    Vector<double> aux3, aux4;
+    Heat<2,double> Heat2d_test1(0.3125, 0.001, 99);
+
+    aux3 = Heat2d_test1.exact(0.5);
+    //std::cout << aux3 << std::endl;
+    aux4 = Heat2d_test1.solve(0.5);
+    //std::cout << aux4 << std::endl;
+
+    // Test 2 -> alpha=0.3125, dt=0.1, m=3
+    // (verify matrix M assembly)
+    Heat<2,double> Heat2d_test2(0.3125, 0.1, 3);
+    std::cout << Heat2d_test2.getMatrix() << std::endl;
+    
     return 0;
 }
