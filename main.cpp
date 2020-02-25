@@ -11,7 +11,7 @@ int main(int argc, char* argv[])
     // (numerical vs. exact solution comparison)
     
     Vector<double> aux1, aux2, auxtotal;
-    Heat<1,double> Heat1d_test1(0.3125, 0.001, 999);
+    Heat<1,double> Heat1d_test1(0.3125, 0.001, 99);
 
     aux1 = Heat1d_test1.exact(1.0);
     //std::cout << aux1 << std::endl;
