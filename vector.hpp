@@ -5,6 +5,7 @@
 #include <memory>
 #include <cassert>
 #include <iomanip>
+#include <cmath>
 
 template <typename T>
 class Vector
@@ -124,6 +125,20 @@ public:
     int size() const
     {
         return length;
+    }
+
+    template<typename U=T>
+    U abs_max()
+    {
+        U max = 0;
+        for (auto i=0; i<length; i++)
+        {
+            if (fabs(data[i]) > max) {
+                max = fabs(data[i]);
+            }
+        }
+
+        return max;
     }
 };
 
