@@ -16,13 +16,6 @@ class Heat{
     const Vector<T> u_initial;
     const Matrix<T> M;
 
-public:
-    //Constructor
-    Heat(double alpha, double delta_t, int mm) : alpha(alpha), m(mm), dt(delta_t), dim(pow(m,n)),
-                                                 u_initial(createI()), M(createM()) {}
-
-    //Methods
-
     template<typename U=T>
     const Matrix<U> createM() const
     {
@@ -84,6 +77,12 @@ public:
     }
 
 
+public:
+    //Constructor
+    Heat(double alpha, double delta_t, int mm) : alpha(alpha), m(mm), dt(delta_t), dim(pow(m,n)),
+                                                 u_initial(createI()), M(createM()) {}
+
+    //Methods
     template<typename U=T>
     const Matrix<U>& getMatrix() const
     {
