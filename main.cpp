@@ -42,11 +42,12 @@ int main(int argc, char* argv[])
 
     auxtotal2d = aux3 - aux4;
 
+
     for(auto i = 0; i < auxtotal2d.size(); ++i){
-        auxtotal2d[i] = auxtotal2d[i]/aux1[i];
+        auxtotal2d[i] = auxtotal2d[i]/aux3[i];
     }
 
-    std::cout << "The max difference in relative value is " << 100*auxtotal2d.abs_max() << "%\n";
+    std::cout << "The max difference in relative value is " << auxtotal2d.abs_max() << "%\n";
 
     // Test 2 -> alpha=0.3125, dt=0.1, m=3
     // (verify matrix M assembly)
