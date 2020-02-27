@@ -23,6 +23,8 @@ cmath
 C:/Users/User/OneDrive/MASTER/Q2/c_pp/untitled/main.cpp
 heat.hpp
 C:/Users/User/OneDrive/MASTER/Q2/c_pp/untitled/heat.hpp
+iostream
+-
 
 C:/Users/User/OneDrive/MASTER/Q2/c_pp/untitled/matrix.hpp
 vector.hpp
@@ -33,14 +35,14 @@ iterator
 -
 
 C:/Users/User/OneDrive/MASTER/Q2/c_pp/untitled/vector.hpp
-iostream
--
 initializer_list
--
-cassert
 -
 memory
 -
+cassert
+-
 iomanip
+-
+cmath
 -
 
