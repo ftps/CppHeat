@@ -1,50 +1,22 @@
 #include "heat.hpp"
 #include <iostream>
-//#include <cmath>
 
 int main(int argc, char* argv[])
 {
-    // VERIFICATION #1: 1d problem
-
-    // Test 1 -> alpha=0.3125, dt=0.001, m=99, t=1
-    // (numerical vs. exact solution comparison)
-    
-    Vector<double> aux1, aux2, auxtotal1d;
-    Heat<1,double> Heat1d_test1(0.3125, 0.001, 4);
-
-    aux1 = Heat1d_test1.exact(1.0); // Exact solution (1 sec)
-    aux2 = Heat1d_test1.solve(1.0); // Numerical solution (1 sec)
-
-    auxtotal1d = aux2-aux1;         // Difference vector
-
-    for(auto i = 0; i < auxtotal1d.size(); ++i){
-        auxtotal1d[i] = auxtotal1d[i]/aux1[i]; // Relative error
+    {
+        Heat<1,double> Heat1d_test1(0.3125, 0.1, 3);
+        std::cout << Heat1d_test1.getMatrix() << std::endl;
     }
+    {
+        // VERIFICATION #1: 1d problem
 
-    int m_max = 100;
-    double dt = 0.001; 
-    double t = 1.0;
-    Vector<double> mVec(m_max), errorVec(m_max);
-    for(auto i = 1; i < m_max; ++i){
-        mVec[i] = i;
-        Heat<1,double> Heat1d_test1dLoop(0.3125, dt, i);
-        Vector<double> auxLoop1 = Heat1d_test1dLoop.solve(t);
-        Vector<double> auxLoop2 = Heat1d_test1dLoop.exact(t);
-        Vector<double> auxtotal1dLoop = auxLoop2 - auxLoop1;
+    	// Test 1 -> alpha=0.3125, dt=0.001, m=99, t=1
+    	// (numerical vs. exact solution comparison)
+        Vector<double> aux1, aux2, auxtotal1d;
+        Heat<1,double> Heat1d_test2(0.3125, 0.001, 99);
 
-        for(auto j = 0; j < auxtotal1dLoop.size(); ++j){
-        auxtotal1dLoop[j] = auxtotal1dLoop[j]/auxLoop1[j]; // Relative error
-    }
-        errorVec[i] = 100*auxtotal1dLoop.abs_max();
-        //std::cout << i << " ";
-        std::cout << errorVec[i] << " ";
-    };
-
-/*
-    // Test 2 -> alpha=0.3125, dt=0.1, m=3
-    // (verify matrix M assembly)
-    Heat<1,double> Heat1d_test2(0.3125, 0.1, 3);
-    std::cout << Heat1d_test2.getMatrix() << std::endl;
+        aux1 = Heat1d_test2.exact(1.0); // Exact solution (1 sec)
+        aux2 = Heat1d_test2.solve(1.0); // Numerical solution (1 sec)
 
         auxtotal1d = aux2-aux1;         // Difference vector
 
@@ -76,10 +48,7 @@ int main(int argc, char* argv[])
             auxtotal2d[i] = auxtotal2d[i]/aux3[i];
         }
 
-    // Test 2 -> alpha=0.3125, dt=0.1, m=3
-    // (verify matrix M assembly)
-    Heat<2,double> Heat2d_test2(0.3125, 0.1, 3);
-    std::cout << Heat2d_test2.getMatrix() << std::endl;
-*/
+        std::cout << "The max difference in relative value is " << auxtotal2d.abs_max() << "%\n";
+    }
     return 0;
 }
