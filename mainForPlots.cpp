@@ -8,7 +8,7 @@ int main(int argc, char* argv[])
 
     // Test 1 -> alpha=0.3125, dt=0.001, m=99, t=1
     // (numerical vs. exact solution comparison)
-    
+
     Vector<double> aux1, aux2, auxtotal1d;
     Heat<1,double> Heat1d_test1(0.3125, 0.001, 4);
 
@@ -21,8 +21,12 @@ int main(int argc, char* argv[])
         auxtotal1d[i] = auxtotal1d[i]/aux1[i]; // Relative error
     }
 
+    FILE *text;
+    text=fopen("output.txt","w");
+    fprintf(text,"Nodes: error:\n");
+
     int m_max = 100;
-    double dt = 0.001; 
+    double dt = 0.001;
     double t = 1.0;
     Vector<double> mVec(m_max), errorVec(m_max);
     for(auto i = 1; i < m_max; ++i){
@@ -33,12 +37,16 @@ int main(int argc, char* argv[])
         Vector<double> auxtotal1dLoop = auxLoop2 - auxLoop1;
 
         for(auto j = 0; j < auxtotal1dLoop.size(); ++j){
-        auxtotal1dLoop[j] = auxtotal1dLoop[j]/auxLoop1[j]; // Relative error
-    }
+            auxtotal1dLoop[j] = auxtotal1dLoop[j]/auxLoop1[j]; // Relative error
+        }
         errorVec[i] = 100*auxtotal1dLoop.abs_max();
         //std::cout << i << " ";
         std::cout << errorVec[i] << " ";
+
+        fprintf(text,"%d , %f ;\n",i,errorVec[i]);
     };
+
+    fclose(text);
 
 /*
     // Test 2 -> alpha=0.3125, dt=0.1, m=3
