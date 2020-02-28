@@ -5,7 +5,7 @@
 int main(int argc, char* argv[])
 {
     // VERIFICATION #1: 1d problem
-    
+    /*
     // Test 1 -> alpha=0.3125
     // (numerical vs. exact solution comparison)
     {
@@ -28,19 +28,19 @@ int main(int argc, char* argv[])
         std::cout << errorVec[i] << " ";
     };
     }
-    
+    */
 
     // VERIFICATION #2: 2d problem
 
     // Test 1 -> alpha=0.3125, dt=0.001, m=99, t=0.5
     // (numerical vs. exact solution comparison)
-    /*
+    
     {
-    int m_max = 100;
+    int m_max = 61;
     double dt = 0.1; 
     double t = 0.5;
     Vector<double> mVec(m_max), errorVec(m_max);
-    for(auto i = 3; i < m_max; i+=3){
+    for(auto i = 1; i < m_max; i++){
         mVec[i] = i;
         Heat<2,double> Heat2d_testLoop(0.3125, dt, i);
         Vector<double> auxLoop1 = Heat2d_testLoop.solve(t);
@@ -55,7 +55,7 @@ int main(int argc, char* argv[])
         std::cout << errorVec[i] << " ";
     };
     }
-    */
+    
 
     return 0;
 }
