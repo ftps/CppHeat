@@ -12,7 +12,7 @@ OBJECTS = $(patsubst %.cpp, %.o, $(wildcard main.cpp))
 OBJECT_TEST = $(patsubst %.cpp, %.o, $(wildcard mainForPlots.cpp))
 HEADERS = $(wildcard *.hpp)
 
-%.o: %.c $(HEADERS)
+%.o: %.cpp $(HEADERS)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 .PRECIOUS: $(TARGET) $(OBJECTS)
