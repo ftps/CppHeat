@@ -114,7 +114,7 @@ plot(mVec_2d_3,errorVec1_2d_3,'LineWidth',2); grid on; hold on
 plot(mVec_2d_3,errorVec2_2d_3,'LineWidth',2); hold on
 plot(mVec_2d_3,errorVec3_2d_3,'LineWidth',2); hold on
 a = get(gca,'XTickLabel'); set(gca,'fontsize',xticksize)
-xlabel('No. Points per Dimension: m','Fontsize',fontsize,'Interpreter','latex'); 
+xlabel('Distance between nodes dx','Fontsize',fontsize,'Interpreter','latex'); 
 ylabel('Relative Error (\%)','Fontsize',fontsize,'Interpreter','latex');
 title('2D Case: Exact-Numerical Solution Error (t = 0.5 sec)','Fontsize',fontsize,'Interpreter','latex');
 legend('dt = 0.1','dt = 0.01','dt = 0.001','Location','Best','Fontsize',fontsize)
