@@ -5,7 +5,6 @@
 int main(int argc, char* argv[])
 {
     // VERIFICATION #1: 1d problem
-<<<<<<< HEAD
 
     // Test 1 -> alpha=0.3125, dt=0.001, m=99, t=1
     // (numerical vs. exact solution comparison)
@@ -26,12 +25,10 @@ int main(int argc, char* argv[])
     text=fopen("output.txt","w");
     fprintf(text,"Nodes: error:\n");
 
-=======
     
     // Test 1 -> alpha=0.3125
     // (numerical vs. exact solution comparison)
-    {
->>>>>>> 0a29de650268d3b5642af12472eb1445462d21f8
+
     int m_max = 100;
     double dt = 0.001;
     double t = 1.0;
@@ -48,14 +45,11 @@ int main(int argc, char* argv[])
         }
         errorVec[i] = 100*auxtotal1dLoop.abs_max();
         //std::cout << i << " ";
-        std::cout << errorVec[i] << " ";
-
+        //std::cout << errorVec[i] << " ";
         fprintf(text,"%d , %f ;\n",i,errorVec[i]);
     };
-    }
-    
 
-<<<<<<< HEAD
+
     fclose(text);
 
 /*
@@ -65,9 +59,8 @@ int main(int argc, char* argv[])
     std::cout << Heat1d_test2.getMatrix() << std::endl;
 
         auxtotal1d = aux2-aux1;         // Difference vector
-=======
+
     // VERIFICATION #2: 2d problem
->>>>>>> 0a29de650268d3b5642af12472eb1445462d21f8
 
     // Test 1 -> alpha=0.3125, dt=0.001, m=99, t=0.5
     // (numerical vs. exact solution comparison)
