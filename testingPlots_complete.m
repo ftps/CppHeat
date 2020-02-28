@@ -1,4 +1,4 @@
-git
+%git
 
 clear all; close all; clc
 
@@ -18,6 +18,34 @@ errorVec2_1d = [45.9354 26.6975 17.9132 13.3939 10.8067 9.19937 8.13658 7.39887 
 errorVec3_1d = [44.4214 24.0959 14.7515 9.93022 7.166 5.44729 4.31023 3.52067 2.95086 2.52653 2.20223 1.9489 1.74731 1.58429 1.45062 1.33966 1.24655 1.16767 1.10026 1.04221 0.991848 0.94789 0.90929 0.875213 0.84498 0.818034 0.793915 0.772241 0.752694 0.735003 0.718941 0.704315 0.690957 0.678726 0.667498 0.657167 0.64764 0.638835 0.630681 8.28211 12.7957 15.5537 17.2772 18.4284 19.1674 19.4269 19.5317 19.3751 18.9776 18.801 18.2538 17.6311 17.0837 16.2713 15.7212 14.8334 13.9966 12.9017 12.0973 11.2568 10.0727 8.94332 8.08656 7.78835 6.6462 6.98494 7.02679 7.33975 7.10166 6.52956 5.81411 5.26185 5.56686 5.28622 4.98788 4.87064 4.817 4.30661 4.29443 4.21352 5.77019 5.78449 8.31983 8.50218 8.34929 8.56117 8.20013 8.61136 7.50052 6.54928 6.24556 5.93632 4.12456 3.97158 3.87258 3.28238 3.83405 3.20012 3.79899];
 errorVec4_1d = [44.2651 23.8258 14.4225 9.56936 6.78646 5.05598 3.91108 3.11605 2.54227 2.11498 1.7884 1.5333 1.33029 1.16613 1.03152 0.919778 0.826018 0.746582 0.678697 0.62023 0.569518 0.52525 0.486378 0.452061 0.421615 0.394478 0.370189 0.348363 0.328677 0.310862 0.294686 0.279957 0.266505 0.254187 0.24288 0.232476 0.222882 0.214015 0.205803 0.198185 0.191103 0.184509 0.178359 0.172614 0.167239 0.162204 0.157479 0.153041 0.148866 0.144933 0.141226 0.137726 0.134418 0.13129 0.128327 0.125519 0.122854 0.120324 0.117919 0.115632 0.113454 0.111379 0.1094 0.107512 0.105709 0.103987 0.102339 0.100763 0.0992538 0.0978079 0.0964217 0.0950921 0.093816 0.0925906 0.0914133 0.0902814 0.0891929 0.0881454 0.0871369 0.0861655 0.0852294 0.084327 0.0834565 0.0826167 0.0818059 0.0810229 0.0802664 0.0795353 0.0788285 0.0781448 0.0774832 0.0768429 0.0762229 0.0756224 0.0750405 0.0744766 0.0739298 0.0733995 0.072885];
 
+%cicle to get the powers of two only
+i=1;    j=1;
+while i<99
+    mVec_1d_2(j)=j-1;
+    errorVec1_1d_2(j)=errorVec1_1d(i);
+    errorVec2_1d_2(j)=errorVec2_1d(i);
+    errorVec3_1d_2(j)=errorVec3_1d(i);
+    errorVec4_1d_2(j)=errorVec4_1d(i);
+    i=i*2;
+    j=j+1;
+end
+
+final_m=35;
+mVec_1d_3=zeros(final_m);
+errorVec1_1d_3 = zeros(final_m);
+errorVec2_1d_3 = zeros(final_m);
+errorVec3_1d_3 = zeros(final_m);
+errorVec4_1d_3 = zeros(final_m);
+for i = 1:final_m
+    mVec_1d_3(i)=1./(mVec_1d(i)+1);
+    errorVec1_1d_3(i)=errorVec1_1d(i);
+    errorVec2_1d_3(i)=errorVec2_1d(i);
+    errorVec3_1d_3(i)=errorVec3_1d(i);
+    errorVec4_1d_3(i)=errorVec4_1d(i);
+end
+
+
+%This is the plot of error as function of m
 figure(1)
 plot(mVec_1d,errorVec1_1d,'LineWidth',2); grid on; hold on
 plot(mVec_1d,errorVec2_1d,'LineWidth',2); hold on
@@ -29,6 +57,30 @@ ylabel('Relative Error (\%)','Fontsize',fontsize,'Interpreter','latex');
 title('1D Case: Exact-Numerical Solution Error (t = 1 sec)','Fontsize',fontsize,'Interpreter','latex');
 legend('dt = 0.1','dt = 0.01','dt = 0.001','dt = 0.0001','Location','NorthEast','Fontsize',fontsize)
 
+%Error as a function of m as powers of 2
+figure(2)
+plot(mVec_1d_2,errorVec1_1d_2,'LineWidth',2); grid on; hold on
+plot(mVec_1d_2,errorVec2_1d_2,'LineWidth',2); hold on
+plot(mVec_1d_2,errorVec3_1d_2,'LineWidth',2); hold on
+plot(mVec_1d_2,errorVec4_1d_2,'LineWidth',2); hold on
+a = get(gca,'XTickLabel'); set(gca,'fontsize',xticksize)
+xlabel('log_2 of the number of Points per Dimension: log_2(m)','Fontsize',fontsize,'Interpreter','latex'); 
+ylabel('Relative Error (\%)','Fontsize',fontsize,'Interpreter','latex');
+title('1D Case: Exact-Numerical Solution Error (t = 1 sec)','Fontsize',fontsize,'Interpreter','latex');
+legend('dt = 0.1','dt = 0.01','dt = 0.001','dt = 0.0001','Location','NorthEast','Fontsize',fontsize)
+
+%Error as a function of spacing between nodes (dx)
+figure(3)
+plot(mVec_1d_3,errorVec1_1d_3,'LineWidth',2); grid on; hold on
+plot(mVec_1d_3,errorVec2_1d_3,'LineWidth',2); hold on
+plot(mVec_1d_3,errorVec3_1d_3,'LineWidth',2); hold on
+plot(mVec_1d_3,errorVec4_1d_3,'LineWidth',2); hold on
+a = get(gca,'XTickLabel'); set(gca,'fontsize',xticksize)
+xlabel('Distance between nodes dx','Fontsize',fontsize,'Interpreter','latex'); 
+ylabel('Relative Error (\%)','Fontsize',fontsize,'Interpreter','latex');
+title('1D Case: Exact-Numerical Solution Error (t = 1 sec)','Fontsize',fontsize,'Interpreter','latex');
+legend('dt = 0.1','dt = 0.01','dt = 0.001','dt = 0.0001','Location','NorthEast','Fontsize',fontsize)
+
 %% 2D PROBLEM: TESTING
 
 mVec_2d      = 3:3:99;
@@ -36,7 +88,7 @@ errorVec1_2d = [54.1066 51.02 50.2178 49.8988 49.7408 49.6512 49.5957 49.559 49.
 errorVec2_2d = [21.1715 13.0507 10.8818 10.0271 9.7186 9.82569 9.31048 9.43827 9.39442 9.02665 9.40334 9.14093 8.94577 9.44282 9.06766 9.17412 8.88987 9.11308 8.99196 9.52601 8.87222 9.62914 8.86393 8.83171 8.84402 8.82295 8.82385 9.64856 8.8073 8.88064 8.84829 9.03626 8.94056];
 errorVec3_2d = [15.1143 5.87853 3.40111 2.40685 1.91241 1.63166 1.45719 1.34146 1.26079 1.5513 1.34544 1.23533 1.17564 1.21527 2.11803 2.31536 1.72137 2.33655 1.23448 2.30449 2.13692 2.27461 2.59763 2.17319 4.76766 1.8608 1.71549 2.0011 1.36322 1.55946 2.71161 3.60486 1.71317];
 
-figure(2)
+figure(4)
 plot(mVec_2d,errorVec1_2d,'LineWidth',2); grid on; hold on
 plot(mVec_2d,errorVec2_2d,'LineWidth',2); hold on
 plot(mVec_2d,errorVec3_2d,'LineWidth',2); hold on
@@ -46,7 +98,26 @@ ylabel('Relative Error (\%)','Fontsize',fontsize,'Interpreter','latex');
 title('2D Case: Exact-Numerical Solution Error (t = 0.5 sec)','Fontsize',fontsize,'Interpreter','latex');
 legend('dt = 0.1','dt = 0.01','dt = 0.001','Location','Best','Fontsize',fontsize)
 
-
+final_m=15;
+mVec_2d_3=zeros(final_m);
+errorVec1_2d_3 = zeros(final_m);
+errorVec2_2d_3 = zeros(final_m);
+errorVec3_2d_3 = zeros(final_m);
+for i = 1:final_m
+    mVec_2d_3(i)=1./(mVec_2d(i)+1);
+    errorVec1_2d_3(i)=errorVec1_2d(i);
+    errorVec2_2d_3(i)=errorVec2_2d(i);
+    errorVec3_2d_3(i)=errorVec3_2d(i);
+end
+figure(5)
+plot(mVec_2d_3,errorVec1_2d_3,'LineWidth',2); grid on; hold on
+plot(mVec_2d_3,errorVec2_2d_3,'LineWidth',2); hold on
+plot(mVec_2d_3,errorVec3_2d_3,'LineWidth',2); hold on
+a = get(gca,'XTickLabel'); set(gca,'fontsize',xticksize)
+xlabel('No. Points per Dimension: m','Fontsize',fontsize,'Interpreter','latex'); 
+ylabel('Relative Error (\%)','Fontsize',fontsize,'Interpreter','latex');
+title('2D Case: Exact-Numerical Solution Error (t = 0.5 sec)','Fontsize',fontsize,'Interpreter','latex');
+legend('dt = 0.1','dt = 0.01','dt = 0.001','Location','Best','Fontsize',fontsize)
 
 
 

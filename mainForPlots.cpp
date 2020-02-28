@@ -52,7 +52,7 @@ int main(int argc, char* argv[])
 
     fclose(text);
 
-/*
+
     // Test 2 -> alpha=0.3125, dt=0.1, m=3
     // (verify matrix M assembly)
     Heat<1,double> Heat1d_test2(0.3125, 0.1, 3);
@@ -64,7 +64,7 @@ int main(int argc, char* argv[])
 
     // Test 1 -> alpha=0.3125, dt=0.001, m=99, t=0.5
     // (numerical vs. exact solution comparison)
-    /*
+
     {
     int m_max = 100;
     double dt = 0.1; 
@@ -85,7 +85,7 @@ int main(int argc, char* argv[])
         std::cout << errorVec[i] << " ";
     };
     }
-    */
+
 
     return 0;
 }
