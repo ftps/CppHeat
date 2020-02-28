@@ -1,5 +1,3 @@
-%git
-
 clear all; close all; clc
 
 set(groot,'defaultAxesTickLabelInterpreter','latex');  
@@ -64,7 +62,7 @@ plot(mVec_1d_2,errorVec2_1d_2,'LineWidth',2); hold on
 plot(mVec_1d_2,errorVec3_1d_2,'LineWidth',2); hold on
 plot(mVec_1d_2,errorVec4_1d_2,'LineWidth',2); hold on
 a = get(gca,'XTickLabel'); set(gca,'fontsize',xticksize)
-xlabel('log_2 of the number of Points per Dimension: log_2(m)','Fontsize',fontsize,'Interpreter','latex'); 
+xlabel('log\_2 of the number of Points per Dimension: log\_2(m)','Fontsize',fontsize,'Interpreter','latex'); 
 ylabel('Relative Error (\%)','Fontsize',fontsize,'Interpreter','latex');
 title('1D Case: Exact-Numerical Solution Error (t = 1 sec)','Fontsize',fontsize,'Interpreter','latex');
 legend('dt = 0.1','dt = 0.01','dt = 0.001','dt = 0.0001','Location','NorthEast','Fontsize',fontsize)
@@ -83,10 +81,10 @@ legend('dt = 0.1','dt = 0.01','dt = 0.001','dt = 0.0001','Location','NorthEast',
 
 %% 2D PROBLEM: TESTING
 
-mVec_2d      = 3:3:99;
-errorVec1_2d = [54.1066 51.02 50.2178 49.8988 49.7408 49.6512 49.5957 49.559 49.5337 49.5147 49.5014 49.4905 49.4829 49.4754 49.4703 49.4658 49.4626 49.4587 49.4563 49.4545 49.4521 49.4501 49.4491 49.4486 49.4462 49.4451 49.4444 49.4434 49.4425 49.4419 49.4412 49.4408 49.4402];
-errorVec2_2d = [21.1715 13.0507 10.8818 10.0271 9.7186 9.82569 9.31048 9.43827 9.39442 9.02665 9.40334 9.14093 8.94577 9.44282 9.06766 9.17412 8.88987 9.11308 8.99196 9.52601 8.87222 9.62914 8.86393 8.83171 8.84402 8.82295 8.82385 9.64856 8.8073 8.88064 8.84829 9.03626 8.94056];
-errorVec3_2d = [15.1143 5.87853 3.40111 2.40685 1.91241 1.63166 1.45719 1.34146 1.26079 1.5513 1.34544 1.23533 1.17564 1.21527 2.11803 2.31536 1.72137 2.33655 1.23448 2.30449 2.13692 2.27461 2.59763 2.17319 4.76766 1.8608 1.71549 2.0011 1.36322 1.55946 2.71161 3.60486 1.71317];
+mVec_2d      = 1:60;
+errorVec1_2d = [65.2477 57.3787 54.1066 52.4874 51.5784 51.02 50.6533 50.4 50.2178 50.0825 49.9793 49.8988 49.8348 49.7831 49.7408 49.7056 49.6762 49.6512 49.6299 49.6116 49.5957 49.5819 49.5696 49.559 49.5494 49.5412 49.5337 49.5264 49.5205 49.5147 49.5099 49.5056 49.5014 49.497 49.4942 49.4905 49.4882 49.4844 49.4829 49.4799 49.4781 49.4754 49.4734 49.472 49.4703 49.4682 49.467 49.4658 49.4643 49.4631 49.4626 49.4609 49.4596 49.4587 49.4581 49.4568 49.4563 49.4552 49.4548 49.4545];
+errorVec2_2d = [47.5203 29.3906 21.1715 16.956 14.5464 13.0507 12.0623 11.3765 10.8818 10.5407 10.2977 10.0271 9.86466 9.77765 9.7186 9.6529 9.51406 9.82569 9.55222 9.32328 9.31048 9.42927 9.40769 9.43827 9.77821 9.22869 9.39442 9.12981 9.10943 9.02665 9.59338 9.01164 9.40334 8.9899 9.32932 9.14093 9.45722 9.33024 8.94577 9.04695 8.99467 9.44282 9.75452 8.95222 9.06766 8.99987 9.01511 9.17412 9.09357 9.08633 8.88987 9.17262 9.13802 9.11308 9.00845 8.99648 8.99196 8.93193 9.08254 9.52601];
+errorVec3_2d = [44.5939 24.3938 15.1143 10.328 7.58431 5.87853 4.75009 3.96656 3.40111 2.98004 2.65823 2.40685 2.20681 2.04505 1.91241 1.80231 1.70993 1.63166 1.56477 1.50716 1.45719 1.41357 1.37527 1.34146 1.31146 1.28472 1.26079 1.78068 1.64817 1.5513 1.46593 1.36962 1.34544 1.32075 1.28114 1.23533 1.21063 1.1862 1.17564 1.14894 1.15683 1.21527 1.44705 1.73436 2.11803 2.01624 3.02792 2.31536 1.39478 1.50746 1.72137 2.08498 1.71828 2.33655 1.3053 1.90278 1.23448 2.67953 1.25164 2.30449];
 
 figure(4)
 plot(mVec_2d,errorVec1_2d,'LineWidth',2); grid on; hold on
@@ -114,10 +112,7 @@ plot(mVec_2d_3,errorVec1_2d_3,'LineWidth',2); grid on; hold on
 plot(mVec_2d_3,errorVec2_2d_3,'LineWidth',2); hold on
 plot(mVec_2d_3,errorVec3_2d_3,'LineWidth',2); hold on
 a = get(gca,'XTickLabel'); set(gca,'fontsize',xticksize)
-xlabel('No. Points per Dimension: m','Fontsize',fontsize,'Interpreter','latex'); 
+xlabel('Distance between nodes dx','Fontsize',fontsize,'Interpreter','latex'); 
 ylabel('Relative Error (\%)','Fontsize',fontsize,'Interpreter','latex');
 title('2D Case: Exact-Numerical Solution Error (t = 0.5 sec)','Fontsize',fontsize,'Interpreter','latex');
 legend('dt = 0.1','dt = 0.01','dt = 0.001','Location','Best','Fontsize',fontsize)
-
-
-
