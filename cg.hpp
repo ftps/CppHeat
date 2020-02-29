@@ -4,9 +4,9 @@
 #include "matrix.hpp"
 
 template<typename T>
-inline int cg(const Matrix<T> &A, const Vector<T> &b, Vector<T> &x, T tol, int maxiter)
+inline int cg(const Matrix<T> &A, const Vector<T> &b, Vector<T> &x, T& tol, int maxiter)
 {
-    Vector<T> p = b;
+    Vector<T> p = b - A*x;
     Vector<T> r = p;
     T a, aux1 = dot(r, r), aux2;
 

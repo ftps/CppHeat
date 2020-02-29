@@ -16,7 +16,7 @@ int main(int argc, char* argv[])
         Heat<1,double> Heat1d_test2(0.3125, 0.001, 99);
 
         aux1 = Heat1d_test2.exact(1.0); // Exact solution (1 sec)
-        aux2 = Heat1d_test2.solve(1.0); // Numerical solution (1 sec)
+        aux2 = Heat1d_test2.solve(1.0, 0.000001); // Numerical solution (1 sec)
         auxtotal1d = aux2-aux1;         // Difference vector
 
         for(auto i = 0; i < auxtotal1d.size(); ++i){
@@ -39,7 +39,7 @@ int main(int argc, char* argv[])
         Heat<2,double> Heat2d_test2(0.3125, 0.001, 99);
 
         aux3 = Heat2d_test2.exact(0.5); // Exact solution (0.5 sec)
-        aux4 = Heat2d_test2.solve(0.5); // Numerical solution (0.5 sec)
+        aux4 = Heat2d_test2.solve(0.5, 0.00005); // Numerical solution (0.5 sec)
 
         auxtotal2d = aux3 - aux4;
 
