@@ -16,22 +16,19 @@ class Matrix
 //private:
     const int row, col;
     map<T> sparse;
-    typename map<T>::iterator it_begin;
 public:
     // Constructors
-    Matrix(int r, int c) : row(r), col(c), it_begin(sparse.begin()) {}
+    Matrix(int r, int c) : row(r), col(c) {}
 
     Matrix(const Matrix<T>&& other) : Matrix(other.row, other.col)
     {
         sparse = std::move(other.sparse);
-        it_begin = sparse.begin();
     }
 
     template<typename U=T>
     Matrix(const Matrix<U>& other) : Matrix(other.row, other.col)
     {
         sparse = other.sparse;
-        it_begin = other.it_begin;
     }
 
     // Operators
@@ -42,8 +39,6 @@ public:
             throw "Position out of bounds\n";
         }
 
-        sparse[p];
-        it_begin = sparse.begin();
         return sparse[p];
     }
     // Methods
@@ -52,16 +47,16 @@ public:
         return {row, col};
     }
 
-	template<typename U=T>
-	typename map<T>::iterator iter() const
+    template<typename U=T>
+	typename map<T>::const_iterator begin() const
 	{
-		return it_begin;
+		return sparse.begin();
 	}
 
     template<typename U=T>
-    bool end(typename map<T>::iterator it) const
+    typename map<U>::const_iterator end() const
     {
-        return it == sparse.end();
+        return sparse.end();
     }
 };
 
@@ -70,7 +65,7 @@ inline Matrix<T> operator*(const T& lhs, const Matrix<T>& rhs)
 {
     Matrix<T> result(rhs.size[0], rhs.size[1]);
 
-    for(auto it = rhs.iter(); !rhs.end(it); it++){
+    for(auto it = rhs.begin(); it != rhs.end(); it++){
         result[it->first] = lhs*it->second;
     }
 
@@ -80,7 +75,7 @@ inline Matrix<T> operator*(const T& lhs, const Matrix<T>& rhs)
 template<typename T>
 std::ostream& operator<<(std::ostream& os, const Matrix<T>& M)
 {
-    for(auto it = M.iter(); !M.end(it); it++)
+    for(auto it = M.begin(); it != M.end(); it++)
     {
         os << "[" << it->first[0] << ", " << it->first[1] << "]: ";
         os << it->second << std::endl;
@@ -98,7 +93,7 @@ inline Vector<T> operator*(const Matrix<T>& lhs, const Vector<T>& rhs)
 	if(lhs.size()[1] != rhs.size()) throw "Matrix and vector sizes don't match.";
     Vector<T> result(lhs.size()[0]);
 
-	for(auto it = lhs.iter(); !lhs.end(it); it++){
+	for(auto it = lhs.begin(); it != lhs.end(); it++){
 		result[it->first[0]] += it->second*rhs[it->first[1]];
 	}
 

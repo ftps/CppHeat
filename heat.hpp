@@ -108,8 +108,8 @@ public:
         Vector<U> u_aux(dim);
 
         for (auto i = 0; i < l; ++i) {
-            u_aux = u;
-            cg(M, u_aux, u, 0.001, 1e6); //tolerance and number of max iterations can be changed
+            u_aux = u - M*u;
+            cg(M, u_aux, u, 0.00001, 1e6); //tolerance and number of max iterations can be changed
         }
         return u;
     }

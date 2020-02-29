@@ -4,21 +4,23 @@
 #include "matrix.hpp"
 
 template<typename T>
-inline int cg(const Matrix<T> &A, Vector<T> &b, Vector<T> &x, T tol, int maxiter)
+inline int cg(const Matrix<T> &A, const Vector<T> &b, Vector<T> &x, T tol, int maxiter)
 {
-    Vector<T> p = b - A*x;
-    Vector<T> r = b - A*x;
-    T a;
+    Vector<T> p = b;
+    Vector<T> r = p;
+    T a, aux1 = dot(r, r), aux2;
 
     for(int i = 0; i < maxiter; ++i){
-        a = dot(r, r)/dot(A*p, p);
+        a = aux1/dot(A*p, p);
         x = x + p*a;
         r = r - a*(A*p);
 
-		if(dot(r, r) < tol*tol){
+        aux2 = dot(r, r);
+		if(aux2 < tol){
             return i;
         }
-		p = r + dot(r, r)/(a*dot(A*p, p))*p;
+		p = r + (aux2/aux1)*p;
+        aux1 = aux2;
     }
 
     return -1;
