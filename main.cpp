@@ -10,8 +10,8 @@ int main(int argc, char* argv[])
     {
         // VERIFICATION #1: 1d problem
 
-        // Test 1 -> alpha=0.3125, dt=0.001, m=99, t=1
-        // (numerical vs. exact solution comparison)
+    	// Test 1 -> alpha=0.3125, dt=0.001, m=99, t=1
+    	// (numerical vs. exact solution comparison)
         Vector<double> aux1, aux2, auxtotal1d;
         Heat<1,double> Heat1d_test2(0.3125, 0.001, 99);
 
