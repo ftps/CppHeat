@@ -4,7 +4,6 @@
 #include "cg.hpp"
 #include "matrix.hpp"
 #include "vector.hpp"
-#include <cmath>
 
 template <int n, typename T>
 class Heat{
@@ -32,7 +31,7 @@ class Heat{
                     kk *= m;                // which will be located right next to i (j = i + 1),
                     kk1 *= m;               // on the next line (j = i + m), plane (j = i + m^2) or
                 }                           // in general (j = i + m^k)
-                if((i+kk)/kk1 == (i/kk1)){  // this if verifies if j is the same hyperplane as i
+                if((i+kk)/kk1 == (i/kk1) && i+kk < dim){  // this if verifies if j is the same hyperplane as i
                     M_aux[{i, i+kk}] -= coeff;  // and adds the value to such point accordingly
                     M_aux[{i+kk, i}] -= coeff;
                 }

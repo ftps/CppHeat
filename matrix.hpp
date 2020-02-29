@@ -6,7 +6,9 @@
 #include <iterator>
 
 template<typename T>
-using map = std::map<std::array<int,2>, T>;
+using map = std::map<std::array<int, 2>, T>;
+
+
 
 template<typename T>
 class Matrix
@@ -19,10 +21,9 @@ public:
     // Constructors
     Matrix(int r, int c) : row(r), col(c), it_begin(sparse.begin()) {}
 
-    template<typename U=T>
-    Matrix(const Matrix<U> other) : Matrix(other.row, other.col)
+    Matrix(const Matrix<T>&& other) : Matrix(other.row, other.col)
     {
-        sparse = other.sparse;
+        sparse = std::move(other.sparse);
         it_begin = sparse.begin();
     }
 
@@ -94,12 +95,13 @@ std::ostream& operator<<(std::ostream& os, const Matrix<T>& M)
 template<typename T>
 inline Vector<T> operator*(const Matrix<T>& lhs, const Vector<T>& rhs)
 {
-    Vector<T> result(lhs.size()[0]);
 	if(lhs.size()[1] != rhs.size()) throw "Matrix and vector sizes don't match.";
+    Vector<T> result(lhs.size()[0]);
 
 	for(auto it = lhs.iter(); !lhs.end(it); it++){
 		result[it->first[0]] += it->second*rhs[it->first[1]];
 	}
+
 
     return result;
 }
